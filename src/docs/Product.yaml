@@ -1,0 +1,173 @@
+# Bajo paths definimos las rutas
+# Recordar que en app.js para Users tenemos agregado el prefijo /api/users)
+paths:
+
+  /api/products/:
+    # En cada una agregamos los métodos habilitados
+    # Este es el método get que no recibe parámetros para retornar todos los usuarios
+    get:
+      summary: 'Retorna todos los Productos disponibles en la DB - Solo Accede con Role "Admin"'
+      # Este título encabezará la lista
+      tags:
+        - Products
+      # Es importante agregar esta sección de códigos de respuesta
+      responses:
+        "200":
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  # Esta línea hace referencia al esquema de User (tomado desde el modelo de Mongoose)
+                  # Se puede ver el esquema indicado más abajo, en components
+                  $ref: '#/components/schemas/Product'
+        "500":
+          description: 'ERROR general'
+    
+    # En cada una agregamos los métodos habilitados
+    # Este es el método get que no recibe parámetros para retornar todos los usuarios
+    post:
+      summary: 'Crea Ingresar un producto a la BBDD'
+      # Este título encabezará la lista
+      tags:
+        - Products
+      requestBody:
+        description: 'Datos obligatorios en el body'
+        required: true
+        content:
+          application/json:
+            schema:
+              # Esta referencia permite indicar la lista de campos que se deberían
+              # enviar en el body al contactar a este endpoint (ver requestBodies más abajo)
+              $ref: '#/components/requestBodies/addProduct'
+      # Es importante agregar esta sección de códigos de respuesta
+      responses:
+        "200":
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  # Esta línea hace referencia al esquema de Product (tomado desde el modelo de Mongoose)
+                  # Se puede ver el esquema indicado más abajo, en components
+                  $ref: '#/components/schemas/Product'
+        "500":
+          description: 'ERROR general'
+
+
+  /api/products/mockingproducts/{qty}:
+    # En cada una agregamos los métodos habilitados
+    # Este es el método get que no recibe parámetros para retornar todos los usuarios
+    get:
+      summary: 'Crea la Cantidad de Productos de Prueba que pasas por el req.params'
+      # Este título encabezará la lista
+      tags:
+        - Products
+      parameters:
+        - name: qty
+          in: path
+          required: true
+          description: 'Cantidad de Productos a Crear'
+      # Es importante agregar esta sección de códigos de respuesta
+      responses:
+        "200":
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  # Esta línea hace referencia al esquema de Product (tomado desde el modelo de Mongoose)
+                  # Se puede ver el esquema indicado más abajo, en components
+                  $ref: '#/components/schemas/Product'
+        "500":
+          description: 'ERROR general'
+
+  
+
+components:
+
+  schemas:
+    # Este esquema se coloca por separado, para poder referenciarlo en distintos
+    # endpoints arriba
+     Product:
+      #Importante Especificar el tipo de Datos que envio en el Modelo 
+      type: object
+      properties:
+
+        _id:
+          type: objectId
+          description: 'ID MongoDB'
+
+        title:
+          type: string
+          description: 'Nombre del Producto'
+
+        category:
+          type: string
+          description: 'Categoria Asignada'
+
+        price:
+          type: Number
+          description: 'Precio del Producto - Tipo Number'
+
+        thumbnail:
+          type: string
+          description: 'Imagen del Producto'
+
+        code:
+          type: string
+          description: 'Codigo Asignado'
+
+        stock:
+          type: Number
+          description: 'Cantidad Vigente del Producto'
+
+        owner:
+          type: string
+          description: 'Creador del producto'
+
+
+      # Siempre es útil un ejemplo, también pueden colocarse ejemplos específicos por endpoint arriba
+      example:
+        _id: 668ae8fb0670e40beb2bf238
+        title: "Producto de ejemplo"
+        category: "Electrónicos"
+        price: 999.99
+        thumbnail: "/path/to/thumbnail.jpg"
+        code: "P123456"
+        stock: 10
+        owner: "premium"
+
+
+  # Cuál es la diferencia entre schemas y requestBodies?
+  # schemas permite indicar esquemas completos, requestBodies indica los campos
+  # que debería adjuntar una determinada solicitud (en este caso updateUser)
+  requestBodies:
+    addProduct:
+
+      type: object
+      properties:
+
+        title:
+          type: string
+
+        category:
+          type: string
+
+        price:
+          type: number
+
+        thumbnail:
+          type: string
+          
+        code:
+          type: string
+        
+        stock:
+          type: number
+        
+        
+  

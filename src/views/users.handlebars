@@ -1,0 +1,47 @@
+{{> header user=usersFiltered}}
+
+<style>
+
+ul {
+list-style: none; 
+}
+
+li {
+margin-bottom: 10px;
+padding: 10px;
+border: 1px solid #ddd;
+border-radius: 5px;
+}
+
+p {
+margin: 0;
+}
+
+</style>
+
+<div>
+    <h1>Lista de Usuarios</h1>
+
+    <ul>
+        {{#each usersFiltered}} 
+        <li>
+            
+            <p>Nombre: {{this.name}} {{this.lastName}}</p>
+            <p>Email: {{this.email}}</p>
+            <p>Role: {{this.role}}</p>
+            <p>Cantidad de documentos: {{this.documents}}</p>
+
+            <a href="/api/users/premium/{{id}}" class="btn btn-primary">Cambiar Role</a>
+            <a href="/api/users/{{id}}" class="btn btn-danger">Borrar User</a>
+
+           
+            
+        </li>
+        {{/each}}
+    </ul>
+</div>
+
+{{!-- <div style="display: flex; flex-direction: row;">
+    <a href="/api/users/deleteInactiveUsers" method="delete"  class="btn btn-danger">Delete</a>
+</div> --}}
+

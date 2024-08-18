@@ -1,0 +1,75 @@
+{{!-- Es un Formulario <form> </form> que usa un metodo Post --}}
+
+<style>
+    .login-container {
+        max-width: 550px;
+        margin: auto;
+        margin-top: 64px;
+        padding: 32px;
+        border-radius: 0.5em;
+        border: 1px solid #bbb;
+        background-color: #ccc;
+    }
+
+    .btn-100 {
+        width: 100%;
+        margin-bottom: 0.5em;
+    }
+
+    .a2 {
+        color: #333;
+    }
+
+    .a2:hover {
+        color: #000;
+    }
+
+    <style>.login-container {
+        max-width: 360px;
+        margin: auto;
+        margin-top: 64px;
+    }
+
+    .file-drop-label {
+    margin-bottom: 10px; /* Ajusta el valor según tu preferencia */
+    }
+
+</style>
+
+
+{{!-- <div class="login-container">
+    <h1><b>KuiKi-Store</b></h1>
+    <h2>Formulario de Carga</h2>
+
+    <form action="/api/users/documents" method="post" style="margin-top: 32px;">
+        <div class="input-group" style="width: 300px; margin-bottom: 32px;">
+            <span class="input-group-text" id="group1"><i class="fa-solid fa-file"></i></span>
+            <input type="file" name="docs" multiple class="form-control" placeholder="file" required="required">
+        </div>
+
+        <button type="submit" class="btn btn-success btn-100">Carga de Documentos</button>
+
+    </form>
+</div> --}}
+
+
+<div class="login-container">
+    <h1>KuiKi-Store</h1>
+    <h2>Formulario de Carga Documentos</h2>
+    <span class="file-drop-label">Cargar 3 Archivos para poder cambiarte a premium <br></span>
+
+    <form action="/api/users/documents" method="post" enctype="multipart/form-data">
+
+        <div class="file-drop">
+            <span class="file-drop-label">Arrastra los Documentos aquí, o haz clic para seleccionar <br></span>
+            <br>
+            <input type="file" name="docs" multiple accept="image/*,application/pdf" />
+            <ul class="file-list"></ul>
+        </div>
+
+        <p>Tamaño máximo de archivo: 5 MB</p>
+        <button type="submit" class="btn btn-success btn-100">Cargar Documentos</button>
+        <div class="progress-bar"></div>
+    </form>
+</div>
+

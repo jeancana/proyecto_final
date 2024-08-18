@@ -1,0 +1,61 @@
+# Bajo paths definimos las rutas
+# Recordar que en app.js para Users tenemos agregado el prefijo /api/carts)
+paths:
+
+  /api/carts/:
+    # En cada una agregamos los métodos habilitados
+    # Este es el método get que no recibe parámetros para retornar todos los Carritos
+    get:
+      summary: 'Mostrando el Carrito Asociado al User Autenticado'
+      # Este título encabezará la lista
+      tags:
+        - Carts
+      # Es importante agregar esta sección de códigos de respuesta
+      responses:
+        "200":
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  # Esta línea hace referencia al esquema de User (tomado desde el modelo de Mongoose)
+                  # Se puede ver el esquema indicado más abajo, en components
+                  $ref: '#/components/schemas/Cart'
+        "500":
+          description: 'ERROR general'
+    
+
+
+
+
+components:
+
+  schemas:
+    # Este esquema se coloca por separado, para poder referenciarlo en distintos
+    # endpoints arriba
+    Cart:
+      #Importante Especificar el tipo de Datos que envio en el Modelo 
+      type: object
+      properties:
+
+        products:
+          type: array
+          properties:
+
+            _id:
+            type: objectId
+            description: 'ID MongoDB'
+
+          cantidad:
+            type: number
+            description: Cantidad del producto en el carrito
+
+      # Siempre es útil un ejemplo, también pueden colocarse ejemplos específicos por endpoint arriba
+      example:
+        _id: 668ae8fb0670e40beb2bf238
+        cantidad: 11
+       
+
+
+

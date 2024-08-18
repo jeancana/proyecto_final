@@ -1,0 +1,39 @@
+<style>
+
+ul {
+list-style: none; 
+}
+
+li {
+margin-bottom: 10px;
+padding: 10px;
+border: 1px solid #ddd;
+border-radius: 5px;
+}
+
+p {
+margin: 0;
+}
+
+</style>
+
+<div>
+    <h1>Lista de Usuarios Inactivos</h1>
+
+    <ul>
+        {{#each users}} 
+        <li>
+            
+            <p>Nombre: {{this.name}} {{this.lastName}}</p>
+            <p>Email: {{this.email}}</p>
+            <p>Última conexión: {{this.last_connection}}</p> 
+            
+        </li>
+        {{/each}}
+    </ul>
+</div>
+
+<div style="display: flex; flex-direction: row;">
+    <a href="/api/users/deleteInactiveUsers" class="btn btn-danger">Delete</a>
+</div>
+
